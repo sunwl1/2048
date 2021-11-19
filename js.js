@@ -18,7 +18,8 @@
     }
     //아이템 초기화
     boxInit();
-    //초기 아이템 1개 생성
+    //초기 아이템 2개 생성
+    createItem();
     createItem();
   }
 
@@ -155,6 +156,7 @@
               //현제와 다음의 인덱스 변수
               let next = 1;
               let now = 0;
+              let add = false;
               //배열의 끝자락이 아닐때 까지 탐색
               while(border[x][y - next] != undefined)
               {
@@ -169,7 +171,7 @@
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                 }
                 //옆이 자신과 동일한 숫자면 결합후 이동한 아이템 삭제
-                else if(border[x][y - next] == border[x][y - now])
+                else if(border[x][y - next] == border[x][y - now] && add == false)
                 {
                   border[x][y - next] += border[x][y - now];
                   border[x][y - now] = 0;
@@ -177,6 +179,7 @@
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                   box[x][y - next].item.innerHTML = border[x][y - next];
                   $(box[x][y - now].item).remove();
+                  add = true;
                 }
                 next++;
                 now++;
@@ -194,6 +197,7 @@
             {
               let next = 1;
               let now = 0;
+              let add = false;
               while(border[y - next][x] != undefined)
               {
                 if(border[y - next][x] == 0)
@@ -205,7 +209,7 @@
                   box[y - next][x].item.style.left = box[y - next][x].posX + "px";
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
                 }
-                else if(border[y - next][x] == border[y - now][x])
+                else if(border[y - next][x] == border[y - now][x] && add == false)
                 {
                   border[y - next][x] += border[y - now][x];
                   border[y - now][x] = 0;
@@ -213,6 +217,7 @@
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
                   box[y - next][x].item.innerHTML = border[y - next][x];
                   $(box[y - now][x].item).remove();
+                  add = true;
                 }
                 if((y - next)>0)
                 {
@@ -235,6 +240,7 @@
             {
               let next = 1;
               let now = 0;
+              let add = false;
               while(border[x][y + next] != undefined)
               {
                 if(border[x][y + next] == 0)
@@ -246,7 +252,7 @@
                   box[x][y + next].item.style.left = box[x][y + next].posX + "px";
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
                 }
-                else if(border[x][y + next] == border[x][y + now])
+                else if(border[x][y + next] == border[x][y + now] && add == false)
                 {
                   border[x][y + next] += border[x][y + now];
                   border[x][y + now] = 0;
@@ -254,6 +260,7 @@
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
                   box[x][y + next].item.innerHTML = border[x][y + next];
                   $(box[x][y + now].item).remove();
+                  add = true;
                 }
                 next++;
                 now++;
@@ -270,6 +277,7 @@
             {
               let next = 1;
               let now = 0;
+              let add = false;
               while(border[y + next][x] != undefined)
               {
                 if(border[y + next][x] == 0)
@@ -281,7 +289,7 @@
                   box[y + next][x].item.style.left = box[y + next][x].posX + "px";
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
                 }
-                else if(border[y + next][x] == border[y + now][x])
+                else if(border[y + next][x] == border[y + now][x] && add == false)
                 {
                   border[y + next][x] += border[y + now][x];
                   border[y + now][x] = 0;
@@ -289,6 +297,7 @@
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
                   box[y + next][x].item.innerHTML = border[y + next][x];
                   $(box[y + now][x].item).remove();
+                  add = true;
                 }
                 if((y + next) < (borderLength - 1))
                 {
@@ -309,3 +318,10 @@
     }
   }
 
+  restart.addEventListener('click',function(){
+    border = [];
+    box = [];
+    //보드 초기화
+    $(document.querySelectorAll('.item')).remove();
+    init();
+  });
