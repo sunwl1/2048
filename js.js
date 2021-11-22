@@ -166,6 +166,7 @@
               //현제와 다음의 인덱스 변수
               let next = 1;
               let now = 0;
+              let move = false;
               //배열의 끝자락이 아닐때 까지 탐색
               while(border[x][y - next] != undefined)
               {
@@ -178,6 +179,7 @@
                   box[x][y - now].item = null;
                   box[x][y - next].item.style.left = box[x][y - next].posX + "px";
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
+                  if(move == false) move = true;
                 }
                 //옆이 자신과 동일한 숫자면 결합후 이동한 아이템 삭제
                 else if(border[x][y - next] == border[x][y - now] && (box[x][y - next].add == false && box[x][y - now].add == false))
@@ -190,6 +192,7 @@
                   itemColor(border[x][y - next],box[x][y - next].item);
                   $(box[x][y - now].item).remove();
                   box[x][y - next].add = true;
+                  if(move == false) move = true;
                 }
                 next++;
                 now++;
@@ -198,6 +201,7 @@
           }
         }
         // 이동후 아이템 생성
+        if(move == true) 
         createItem();
         break;
       case 38:
@@ -207,6 +211,7 @@
             {
               let next = 1;
               let now = 0;
+              let move = false;
               while(border[y - next][x] != undefined)
               {
                 if(border[y - next][x] == 0)
@@ -217,6 +222,7 @@
                   box[y - now][x].item = null;
                   box[y - next][x].item.style.left = box[y - next][x].posX + "px";
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
+                  if(move == false) move = true;
                 }
                 else if(border[y - next][x] == border[y - now][x] && (box[y - next][x].add == false && box[y - now][x].add == false))
                 {
@@ -228,6 +234,7 @@
                   itemColor(border[y - next][x],box[y - next][x].item);
                   $(box[y - now][x].item).remove();
                   box[y - next][x].add = true;
+                  if(move == false) move = true;
                 }
                 if((y - next)>0)
                 {
@@ -241,6 +248,7 @@
             }
           }
         }
+        if(move == true)
         createItem();
         break;
       case 39:
@@ -250,7 +258,7 @@
             {
               let next = 1;
               let now = 0;
-
+              let move = false;
               while(border[x][y + next] != undefined)
               {
                 if(border[x][y + next] == 0)
@@ -261,6 +269,7 @@
                   box[x][y + now].item = null;
                   box[x][y + next].item.style.left = box[x][y + next].posX + "px";
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
+                  if(move == false) move = true;
                 }
                 else if(border[x][y + next] == border[x][y + now] && (box[x][y + next].add == false &&  box[x][y + now].add == false))
                 {
@@ -272,6 +281,7 @@
                   itemColor(border[x][y + next],box[x][y + next].item);
                   $(box[x][y + now].item).remove();
                   box[x][y + next].add = true;
+                  if(move == false) move = true;
                 }
                 next++;
                 now++;
@@ -279,6 +289,7 @@
             }
           }
         }
+        if(move == true)
         createItem();
       break;
       case 40:
@@ -288,7 +299,7 @@
             {
               let next = 1;
               let now = 0;
-              let add = false;
+              let move = false;
               while(border[y + next][x] != undefined)
               {
                 if(border[y + next][x] == 0)
@@ -299,6 +310,7 @@
                   box[y + now][x].item = null;
                   box[y + next][x].item.style.left = box[y + next][x].posX + "px";
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
+                  if(move == false) move = true;
                 }
                 else if(border[y + next][x] == border[y + now][x] && (box[y + next][x].add == false && box[y + now][x].add == false))
                 {
@@ -310,6 +322,7 @@
                   itemColor(border[y + next][x], box[y + next][x].item);
                   $(box[y + now][x].item).remove();
                   box[y + next][x].add = true;
+                  if(move == false) move = true;
                 }
                 if((y + next) < (borderLength - 1))
                 {
@@ -323,6 +336,7 @@
             }
           }
         }
+        if(move == true)
         createItem();
         break;
       default:
