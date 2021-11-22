@@ -155,6 +155,7 @@
   //아이템 이동
   function itemMove(keyCode)
   {
+    let move = false;
     switch (keyCode) {
       case 37:
         //보드의 갯수만큼 반복문
@@ -166,7 +167,6 @@
               //현제와 다음의 인덱스 변수
               let next = 1;
               let now = 0;
-              let move = false;
               //배열의 끝자락이 아닐때 까지 탐색
               while(border[x][y - next] != undefined)
               {
@@ -189,7 +189,7 @@
                   box[x][y - next].item.style.left = box[x][y - next].posX + "px";
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                   box[x][y - next].item.innerHTML = border[x][y - next];
-                  itemColor(border[x][y - next],box[x][y - next].item);
+                  itemColor(border[x][y - next],box[x][y - next].item); 
                   $(box[x][y - now].item).remove();
                   box[x][y - next].add = true;
                   if(move == false) move = true;
@@ -211,7 +211,6 @@
             {
               let next = 1;
               let now = 0;
-              let move = false;
               while(border[y - next][x] != undefined)
               {
                 if(border[y - next][x] == 0)
@@ -258,7 +257,6 @@
             {
               let next = 1;
               let now = 0;
-              let move = false;
               while(border[x][y + next] != undefined)
               {
                 if(border[x][y + next] == 0)
@@ -299,7 +297,6 @@
             {
               let next = 1;
               let now = 0;
-              let move = false;
               while(border[y + next][x] != undefined)
               {
                 if(border[y + next][x] == 0)
