@@ -46,7 +46,7 @@
     //보드의 박스들 만큼 forEach문
     borderBox.forEach((el, index) => {
       // 각각 객체 초기 데이터 세팅
-      let date = { posX: 0, posY: 0, on: false, index: index, el : el, item:null };
+      let date = { posX: 0, posY: 0, on: false, index: index, el : el, item:null,add:false };
       //인덱스가 4마다 Y축 인덱스 증가 X축은 초기로 초기화
       if (index % 4 == 0) {
         arrIndexY++;
@@ -100,6 +100,15 @@
       }
     }
   }
+  
+
+  function boxAddReset() {
+    for (let i = 0; i < borderLength; i++) {
+      for (let j = 0; j < borderLength; j++) {
+        box[i][j].add = false;
+      }
+    }
+  }
 
   //아이템 채크
   function itemCheck() {
@@ -137,6 +146,7 @@
     else{
       //아이템 이동
       itemMove(e.keyCode);
+      boxAddReset();
     }
     //게임 성공
     successCheck();
@@ -156,7 +166,6 @@
               //현제와 다음의 인덱스 변수
               let next = 1;
               let now = 0;
-              let add = false;
               //배열의 끝자락이 아닐때 까지 탐색
               while(border[x][y - next] != undefined)
               {
@@ -171,15 +180,16 @@
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                 }
                 //옆이 자신과 동일한 숫자면 결합후 이동한 아이템 삭제
-                else if(border[x][y - next] == border[x][y - now] && add == false)
+                else if(border[x][y - next] == border[x][y - now] && (box[x][y - next].add == false && box[x][y - now].add == false))
                 {
                   border[x][y - next] += border[x][y - now];
                   border[x][y - now] = 0;
                   box[x][y - next].item.style.left = box[x][y - next].posX + "px";
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                   box[x][y - next].item.innerHTML = border[x][y - next];
+                  itemColor(border[x][y - next],box[x][y - next].item);
                   $(box[x][y - now].item).remove();
-                  add = true;
+                  box[x][y - next].add = true;
                 }
                 next++;
                 now++;
@@ -197,7 +207,6 @@
             {
               let next = 1;
               let now = 0;
-              let add = false;
               while(border[y - next][x] != undefined)
               {
                 if(border[y - next][x] == 0)
@@ -209,15 +218,16 @@
                   box[y - next][x].item.style.left = box[y - next][x].posX + "px";
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
                 }
-                else if(border[y - next][x] == border[y - now][x] && add == false)
+                else if(border[y - next][x] == border[y - now][x] && (box[y - next][x].add == false && box[y - now][x].add == false))
                 {
                   border[y - next][x] += border[y - now][x];
                   border[y - now][x] = 0;
                   box[y - next][x].item.style.left = box[y - next][x].posX + "px";
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
                   box[y - next][x].item.innerHTML = border[y - next][x];
+                  itemColor(border[y - next][x],box[y - next][x].item);
                   $(box[y - now][x].item).remove();
-                  add = true;
+                  box[y - next][x].add = true;
                 }
                 if((y - next)>0)
                 {
@@ -240,7 +250,7 @@
             {
               let next = 1;
               let now = 0;
-              let add = false;
+
               while(border[x][y + next] != undefined)
               {
                 if(border[x][y + next] == 0)
@@ -252,15 +262,16 @@
                   box[x][y + next].item.style.left = box[x][y + next].posX + "px";
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
                 }
-                else if(border[x][y + next] == border[x][y + now] && add == false)
+                else if(border[x][y + next] == border[x][y + now] && (box[x][y + next].add == false &&  box[x][y + now].add == false))
                 {
                   border[x][y + next] += border[x][y + now];
                   border[x][y + now] = 0;
                   box[x][y + next].item.style.left = box[x][y + next].posX + "px";
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
                   box[x][y + next].item.innerHTML = border[x][y + next];
+                  itemColor(border[x][y + next],box[x][y + next].item);
                   $(box[x][y + now].item).remove();
-                  add = true;
+                  box[x][y + next].add = true;
                 }
                 next++;
                 now++;
@@ -289,15 +300,16 @@
                   box[y + next][x].item.style.left = box[y + next][x].posX + "px";
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
                 }
-                else if(border[y + next][x] == border[y + now][x] && add == false)
+                else if(border[y + next][x] == border[y + now][x] && (box[y + next][x].add == false && box[y + now][x].add == false))
                 {
                   border[y + next][x] += border[y + now][x];
                   border[y + now][x] = 0;
                   box[y + next][x].item.style.left = box[y + next][x].posX + "px";
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
                   box[y + next][x].item.innerHTML = border[y + next][x];
+                  itemColor(border[y + next][x], box[y + next][x].item);
                   $(box[y + now][x].item).remove();
-                  add = true;
+                  box[y + next][x].add = true;
                 }
                 if((y + next) < (borderLength - 1))
                 {
@@ -312,6 +324,42 @@
           }
         }
         createItem();
+        break;
+      default:
+        break;
+    }
+  }
+
+  function itemColor(num,el)
+  {
+    switch (num) {
+      case 4:
+        el.className = 'item';
+        el.className += ' one';
+        break;
+      case 8:
+        el.className = 'item';
+        el.className += ' two';
+        break;
+      case 16:
+        el.className = 'item';
+        el.className += ' three';
+        break;
+      case 32:
+        el.className = 'item';
+        el.className += ' four';
+        break;
+      case 64:
+        el.className = 'item';
+        el.className += ' five';
+        break;
+      case 128:
+        el.className = 'item';
+        el.className += ' fix';
+        break;
+      case 256:
+        el.className = 'item';
+        el.className += ' seven';
         break;
       default:
         break;

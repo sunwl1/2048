@@ -68,3 +68,25 @@
   top: 0;
   transition: .1s;
 }
+
+.border .item.one {
+  color: rgb(255, 0, 0);
+}
+.border .item.two {
+  color: rgb(255 232 182);
+}
+.border .item.three {
+  color: rgb(255, 239, 92);
+}
+.border .item.four {
+  color: rgb(42, 255, 60);
+}
+.border .item.five {
+  color: rgb(61, 65, 255);
+}
+.border .item.fix {
+  color: rgb(48, 11, 255);
+}
+.border .item.seven {
+  color: rgb(166, 11, 255);
+}
