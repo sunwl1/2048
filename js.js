@@ -5,6 +5,8 @@
   //보드의 갯수
   const borderLength = 4;
 
+  let keyCon = false;
+
   //보드 초기화
   init();
 
@@ -138,6 +140,11 @@
 
   //방향키 키입력시 아이템 이동밑 게임오버, 게임성공 확인
   window.addEventListener('keydown', function (e) {
+    if(keyCon == true) return;
+    keyCon = true;
+    setTimeout(() => {
+      keyCon = false;
+    }, 300);
     if(itemCheck() >= 16)
     {
       //게임 오버
@@ -167,6 +174,7 @@
               //현제와 다음의 인덱스 변수
               let next = 1;
               let now = 0;
+              let removeItem = null;
               //배열의 끝자락이 아닐때 까지 탐색
               while(border[x][y - next] != undefined)
               {
@@ -190,10 +198,15 @@
                   box[x][y - next].item.style.top = box[x][y - next].posY + "px";
                   box[x][y - next].item.innerHTML = border[x][y - next];
                   itemColor(border[x][y - next],box[x][y - next].item); 
-                  $(box[x][y - now].item).remove();
+                  TweenMax.from(box[x][y - next].item,0.1,{scale:2});
+                  removeItem = box[x][y - now].item;
                   box[x][y - next].add = true;
                   if(move == false) move = true;
                 }
+                setTimeout(() => {
+                  if(removeItem != null)
+                  $(removeItem).remove();
+                }, 100);
                 next++;
                 now++;
               }
@@ -211,6 +224,7 @@
             {
               let next = 1;
               let now = 0;
+              let removeItem = null;
               while(border[y - next][x] != undefined)
               {
                 if(border[y - next][x] == 0)
@@ -231,10 +245,15 @@
                   box[y - next][x].item.style.top = box[y - next][x].posY + "px";
                   box[y - next][x].item.innerHTML = border[y - next][x];
                   itemColor(border[y - next][x],box[y - next][x].item);
-                  $(box[y - now][x].item).remove();
+                  TweenMax.from(box[y - next][x].item,0.1,{scale:2});
+                  removeItem = box[y - now][x].item;
                   box[y - next][x].add = true;
                   if(move == false) move = true;
                 }
+                setTimeout(() => {
+                  if(removeItem != null)
+                  $(removeItem).remove();
+                }, 100);
                 if((y - next)>0)
                 {
                   next++;
@@ -257,6 +276,7 @@
             {
               let next = 1;
               let now = 0;
+              let removeItem = null;
               while(border[x][y + next] != undefined)
               {
                 if(border[x][y + next] == 0)
@@ -277,10 +297,15 @@
                   box[x][y + next].item.style.top = box[x][y + next].posY + "px";
                   box[x][y + next].item.innerHTML = border[x][y + next];
                   itemColor(border[x][y + next],box[x][y + next].item);
-                  $(box[x][y + now].item).remove();
+                  TweenMax.from(box[x][y + next].item,0.1,{scale:2});
+                  removeItem = box[x][y + now].item;
                   box[x][y + next].add = true;
                   if(move == false) move = true;
                 }
+                setTimeout(() => {
+                  if(removeItem != null)
+                  $(removeItem).remove();
+                }, 100);
                 next++;
                 now++;
               }
@@ -297,6 +322,7 @@
             {
               let next = 1;
               let now = 0;
+              let removeItem = null;
               while(border[y + next][x] != undefined)
               {
                 if(border[y + next][x] == 0)
@@ -317,10 +343,15 @@
                   box[y + next][x].item.style.top = box[y + next][x].posY + "px";
                   box[y + next][x].item.innerHTML = border[y + next][x];
                   itemColor(border[y + next][x], box[y + next][x].item);
-                  $(box[y + now][x].item).remove();
+                  TweenMax.from(box[y + next][x].item,0.1,{scale:2});
+                  removeItem = box[y + now][x].item;
                   box[y + next][x].add = true;
                   if(move == false) move = true;
                 }
+                setTimeout(() => {
+                  if(removeItem != null)
+                  $(removeItem).remove();
+                }, 100);
                 if((y + next) < (borderLength - 1))
                 {
                   next++;
