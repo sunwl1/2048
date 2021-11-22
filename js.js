@@ -87,7 +87,7 @@
         item.style.top = box[posX][posY].posY + "px";
         box[posX][posY].item = item;
         document.querySelector('.border').append(item);
-        TweenMax.from( box[posX][posY].item, 1, {scale:0.2} );
+        TweenMax.from( box[posX][posY].item, 0.2, {scale:0.2} );
         reSelect = false;
       }
       else {
